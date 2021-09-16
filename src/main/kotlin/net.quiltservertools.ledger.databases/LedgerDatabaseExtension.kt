@@ -13,19 +13,19 @@ class LedgerDatabaseExtension : DatabaseExtension {
     override fun getConfigSpecs(): List<ConfigSpec> = listOf(DatabaseExtensionSpec)
 
     override fun getDatabase(server: MinecraftServer): Database {
-        if (Ledger.config()[DatabaseExtensionSpec.h2]) {
+        if (Ledger.config[DatabaseExtensionSpec.h2]) {
             return Database.connect("jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL", "org.h2.Driver")
-        } else if (Ledger.config()[DatabaseExtensionSpec.mySql]) {
-            return Database.connect("jdbc:mysql://${Ledger.config()[DatabaseExtensionSpec.url]}", driver = "com.mysql.cj.jdbc.Driver    ",
-                user = Ledger.config()[DatabaseExtensionSpec.userName], password = Ledger.config()[DatabaseExtensionSpec.password])
+        } else if (Ledger.config[DatabaseExtensionSpec.mySql]) {
+            return Database.connect("jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}", driver = "com.mysql.cj.jdbc.Driver    ",
+                user = Ledger.config[DatabaseExtensionSpec.userName], password = Ledger.config[DatabaseExtensionSpec.password])
         }
         return sqlite(server)
     }
 
     override fun getIdentifier(): Identifier {
-        if (Ledger.config().contains(DatabaseExtensionSpec.h2) && Ledger.config()[DatabaseExtensionSpec.h2]) {
+        if (Ledger.config.contains(DatabaseExtensionSpec.h2) && Ledger.config[DatabaseExtensionSpec.h2]) {
             return h2Identifier
-        } else if (Ledger.config().contains(DatabaseExtensionSpec.mySql) && Ledger.config()[DatabaseExtensionSpec.mySql]) {
+        } else if (Ledger.config.contains(DatabaseExtensionSpec.mySql) && Ledger.config[DatabaseExtensionSpec.mySql]) {
             return mySqlIdentifier
 
         }
