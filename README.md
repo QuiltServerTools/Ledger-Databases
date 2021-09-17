@@ -14,7 +14,7 @@ Add the following to the bottom of your Ledger config file:
 
 ```toml
 [database_extensions]
-h2 = true
+database = "H2"
 ```
 
 ## MySQL
@@ -23,7 +23,7 @@ Add the following to the bottom of your Ledger config file:
 
 ```toml
 [database_extensions]
-mysql = true
+database = "MYSQL"
 url = ""
 username = ""
 password = ""

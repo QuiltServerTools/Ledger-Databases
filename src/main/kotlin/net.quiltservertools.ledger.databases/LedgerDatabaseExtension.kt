@@ -13,12 +13,12 @@ class LedgerDatabaseExtension : DatabaseExtension {
     override fun getConfigSpecs(): List<ConfigSpec> = listOf(DatabaseExtensionSpec)
 
     override fun getDatabase(server: MinecraftServer): Database {
-        if (Ledger.config[DatabaseExtensionSpec.h2]) {
+        if (Ledger.config[DatabaseExtensionSpec.database] == Databases.H2) {
             return Database.connect(
                 url = "jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL",
                 driver = "org.h2.Driver"
             )
-        } else if (Ledger.config[DatabaseExtensionSpec.mySql]) {
+        } else if (Ledger.config[DatabaseExtensionSpec.database] == Databases.MYSQL) {
             return Database.connect(
                 url = "jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}?rewriteBatchedStatements=true",
                 driver = "com.mysql.cj.jdbc.Driver",
@@ -30,9 +30,9 @@ class LedgerDatabaseExtension : DatabaseExtension {
     }
 
     override fun getIdentifier(): Identifier {
-        if (Ledger.config.contains(DatabaseExtensionSpec.h2) && Ledger.config[DatabaseExtensionSpec.h2]) {
+        if (Ledger.config[DatabaseExtensionSpec.database] == Databases.H2) {
             return h2Identifier
-        } else if (Ledger.config.contains(DatabaseExtensionSpec.mySql) && Ledger.config[DatabaseExtensionSpec.mySql]) {
+        } else if (Ledger.config[DatabaseExtensionSpec.database] == Databases.MYSQL) {
             return mySqlIdentifier
 
         }
