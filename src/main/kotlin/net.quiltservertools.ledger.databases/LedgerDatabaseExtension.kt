@@ -36,7 +36,7 @@ class LedgerDatabaseExtension : DatabaseExtension {
             return mySqlIdentifier
 
         }
-        return Ledger.identifier("sqlite")
+        return Ledger.identifier(Ledger.DEFAULT_DATABASE)
     }
 
     private fun sqlite(server: MinecraftServer) = Database.connect(
