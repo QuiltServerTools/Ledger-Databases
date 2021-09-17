@@ -14,10 +14,17 @@ class LedgerDatabaseExtension : DatabaseExtension {
 
     override fun getDatabase(server: MinecraftServer): Database {
         if (Ledger.config[DatabaseExtensionSpec.h2]) {
-            return Database.connect("jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL", "org.h2.Driver")
+            return Database.connect(
+                url = "jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL",
+                driver = "org.h2.Driver"
+            )
         } else if (Ledger.config[DatabaseExtensionSpec.mySql]) {
-            return Database.connect("jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}", driver = "com.mysql.cj.jdbc.Driver",
-                user = Ledger.config[DatabaseExtensionSpec.userName], password = Ledger.config[DatabaseExtensionSpec.password])
+            return Database.connect(
+                url = "jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}?rewriteBatchedStatements=true",
+                driver = "com.mysql.cj.jdbc.Driver",
+                user = Ledger.config[DatabaseExtensionSpec.userName],
+                password = Ledger.config[DatabaseExtensionSpec.password]
+            )
         }
         return sqlite(server)
     }
