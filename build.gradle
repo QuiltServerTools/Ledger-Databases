@@ -40,6 +40,9 @@ dependencies {
 
 	// MySQL
 	implementation(include('mysql:mysql-connector-java:8.0.19'))
+
+	// PostgreSQL
+	implementation(include("org.postgresql:postgresql:42.3.0"))
 }
 
 processResources {

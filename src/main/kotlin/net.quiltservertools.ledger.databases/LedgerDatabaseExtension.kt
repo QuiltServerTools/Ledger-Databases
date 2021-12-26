@@ -13,38 +13,30 @@ class LedgerDatabaseExtension : DatabaseExtension {
     override fun getConfigSpecs(): List<ConfigSpec> = listOf(DatabaseExtensionSpec)
 
     override fun getDatabase(server: MinecraftServer): Database {
-        if (Ledger.config[DatabaseExtensionSpec.database] == Databases.H2) {
-            return Database.connect(
-                url = "jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL",
-                driver = "org.h2.Driver"
+        return when (Ledger.config[DatabaseExtensionSpec.database]) {
+            Databases.SQLITE -> Database.connect(
+                url = "jdbc:sqlite:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.sqlite").pathString}",
             )
-        } else if (Ledger.config[DatabaseExtensionSpec.database] == Databases.MYSQL) {
-            return Database.connect(
+            Databases.H2 -> Database.connect(
+                url = "jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL"
+            )
+            Databases.MYSQL -> Database.connect(
                 url = "jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}?rewriteBatchedStatements=true",
-                driver = "com.mysql.cj.jdbc.Driver",
+                user = Ledger.config[DatabaseExtensionSpec.userName],
+                password = Ledger.config[DatabaseExtensionSpec.password]
+            )
+            Databases.POSTGRESQL -> Database.connect(
+                url = "jdbc:postgresql://${Ledger.config[DatabaseExtensionSpec.url]}?rewriteBatchedStatements=true",
                 user = Ledger.config[DatabaseExtensionSpec.userName],
                 password = Ledger.config[DatabaseExtensionSpec.password]
             )
         }
-        return sqlite(server)
     }
 
-    override fun getIdentifier(): Identifier {
-        if (Ledger.config[DatabaseExtensionSpec.database] == Databases.H2) {
-            return h2Identifier
-        } else if (Ledger.config[DatabaseExtensionSpec.database] == Databases.MYSQL) {
-            return mySqlIdentifier
-
-        }
-        return Ledger.identifier(Ledger.DEFAULT_DATABASE)
-    }
-
-    private fun sqlite(server: MinecraftServer) = Database.connect(
-        url = "jdbc:sqlite:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.sqlite").pathString}",
-    )
-
-    companion object {
-        val h2Identifier = Ledger.identifier("h2_extension")
-        val mySqlIdentifier = Ledger.identifier("mysql_extension")
+    override fun getIdentifier(): Identifier = when (Ledger.config[DatabaseExtensionSpec.database]) {
+        Databases.MYSQL -> Ledger.identifier("mysql_extension")
+        Databases.H2 -> Ledger.identifier("h2_extension")
+        Databases.POSTGRESQL -> Ledger.identifier("postgresql_extension")
+        else -> Ledger.identifier(Ledger.DEFAULT_DATABASE)
     }
 }
