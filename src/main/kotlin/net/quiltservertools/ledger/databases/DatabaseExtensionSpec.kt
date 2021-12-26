@@ -7,4 +7,5 @@ object DatabaseExtensionSpec : ConfigSpec("database_extensions") {
     val userName by optional("root", "username")
     val password by optional("", "password")
     val url by optional("localhost", "url")
+    val properties by optional(listOf<String>(), "properties")
 }

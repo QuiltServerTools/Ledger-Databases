@@ -34,7 +34,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Yes this has to be capitalised
-	modImplementation "com.github.quiltservertools:Ledger:1.2.0"
+	modImplementation "com.github.quiltservertools:ledger:1.2.0"
 
 	modImplementation "net.fabricmc:fabric-language-kotlin:1.7.0+kotlin.1.6.0"
 
@@ -79,13 +79,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from(components["java"])
 		}
 	}
 
