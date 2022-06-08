@@ -1,7 +1,7 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.12.+'
 	id 'maven-publish'
-	id 'org.jetbrains.kotlin.jvm' version "1.6.0"
+	id 'org.jetbrains.kotlin.jvm' version "1.7.0-RC2"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -34,9 +34,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Yes this has to be capitalised
-	modImplementation "com.github.quiltservertools:ledger:1.2.0"
+	modImplementation "com.github.quiltservertools:ledger:1.2.5"
 
-	modImplementation "net.fabricmc:fabric-language-kotlin:1.7.0+kotlin.1.6.0"
+	modImplementation "net.fabricmc:fabric-language-kotlin:1.7.4+kotlin.1.6.21"
 
 	// H2
 	implementation(include("com.h2database:h2:1.4.200"))
