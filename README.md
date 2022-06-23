@@ -1,12 +1,12 @@
 # Ledger Databases
 
-Adds support for MySQL and H2 databases in Ledger
+Adds support for MySQL, H2, and PostgreSQL databases in Ledger
 
 ## Use
 
 ## Common
 
-For both MySQL and H2, you will need to place Ledger Databases in your mods folder along with Ledger 1.1.0 or newer
+For both MySQL, H2, and PostgreSQL, you will need to place Ledger Databases in your mods folder along with Ledger 1.1.0 or newer
 
 ## H2
 
@@ -36,7 +36,7 @@ properties = []
 
 ```toml
 [database_extensions]
-database = "MYSQL"
+database = "POSTGRESQL"
 url = ""
 username = ""
 password = ""
