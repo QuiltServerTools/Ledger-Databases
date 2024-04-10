@@ -1,14 +1,15 @@
 package net.quiltservertools.ledger.databases.databases
 
-import com.github.quiltservertools.ledger.Ledger
-import net.minecraft.server.MinecraftServer
-import net.minecraft.util.WorldSavePath
-import org.jetbrains.exposed.sql.Database
+import net.quiltservertools.ledger.databases.LedgerDatabases
+import org.h2.jdbcx.JdbcDataSource
+import java.nio.file.Path
+import javax.sql.DataSource
+import kotlin.io.path.pathString
 
 object H2Database : LedgerDatabase {
-    override fun getDatabase(server: MinecraftServer) = Database.connect(
-        url = "jdbc:h2:${server.getSavePath(WorldSavePath.ROOT).resolve("ledger.h2").toFile()};MODE=MySQL"
-    )
+    override fun getDataSource(savePath: Path): DataSource = JdbcDataSource().apply {
+        setURL("jdbc:h2:${savePath.pathString};MODE=MySQL")
+    }
 
-    override fun getDatabaseIdentifier() = Ledger.identifier("h2")
+    override fun getDatabaseIdentifier() = LedgerDatabases.identifier("h2")
 }

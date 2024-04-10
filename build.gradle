@@ -19,9 +19,6 @@ repositories {
 	maven {
 		url = "https://oss.sonatype.org/content/repositories/snapshots"
 	}
-	maven {
-		url = "https://maven.bymartrixx.me/"
-	}
 }
 
 dependencies {
@@ -34,20 +31,20 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Yes this has to be capitalised
-	modImplementation "com.github.quiltservertools:Ledger:1.3.0"
+	modImplementation "com.github.quiltservertools:Ledger:1.3.0+local"
 
 	modImplementation "net.fabricmc:fabric-language-kotlin:1.9.4+kotlin.1.8.21"
 
 	implementation("com.zaxxer:HikariCP:5.0.1")
 
 	// H2
-	implementation(include("com.h2database:h2:1.4.200"))
+	implementation(include("com.h2database:h2:2.2.224"))
 
 	// MySQL
-	implementation(include('mysql:mysql-connector-java:8.0.19'))
+	implementation(include('mysql:mysql-connector-java:8.3.0'))
 
 	// PostgreSQL
-	implementation(include("org.postgresql:postgresql:42.3.0"))
+	implementation(include("org.postgresql:postgresql:42.7.3"))
 }
 
 processResources {
