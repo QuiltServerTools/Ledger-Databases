@@ -19,7 +19,7 @@
   "entrypoints": {
     "server": [
       {
-        "value": "net.quiltservertools.ledger.databases.LedgerDatabases"
+        "value": "net.quiltservertools.ledger.databases.LedgerDatabases::INSTANCE"
       }
     ]
   },
