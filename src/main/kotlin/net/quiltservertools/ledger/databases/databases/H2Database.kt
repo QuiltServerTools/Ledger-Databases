@@ -8,7 +8,7 @@ import kotlin.io.path.pathString
 
 object H2Database : LedgerDatabase {
     override fun getDataSource(savePath: Path): DataSource = JdbcDataSource().apply {
-        setURL("jdbc:h2:${savePath.pathString};MODE=MySQL")
+        setURL("jdbc:h2:${savePath.resolve("ledger.h2").pathString};MODE=MySQL")
     }
 
     override fun getDatabaseIdentifier() = LedgerDatabases.identifier("h2")
