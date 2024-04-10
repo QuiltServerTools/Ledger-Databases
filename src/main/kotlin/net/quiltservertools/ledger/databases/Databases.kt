@@ -1,10 +1,15 @@
 package net.quiltservertools.ledger.databases
 
-import net.quiltservertools.ledger.databases.databases.*
+import net.quiltservertools.ledger.databases.databases.H2Database
+import net.quiltservertools.ledger.databases.databases.LedgerDatabase
+import net.quiltservertools.ledger.databases.databases.MySQL
+import net.quiltservertools.ledger.databases.databases.PostgreSQL
+import net.quiltservertools.ledger.databases.databases.SQLite
+
 
 enum class Databases(val database: LedgerDatabase) {
-    SQLITE(SQLite),
     MYSQL(MySQL),
     H2(H2Database),
-    POSTGRESQL(PostgreSQL)
+    POSTGRESQL(PostgreSQL),
+    SQLITE(SQLite)
 }

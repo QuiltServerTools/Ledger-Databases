@@ -1,10 +1,10 @@
 package net.quiltservertools.ledger.databases.databases
 
-import net.minecraft.server.MinecraftServer
 import net.minecraft.util.Identifier
-import org.jetbrains.exposed.sql.Database
+import java.nio.file.Path
+import javax.sql.DataSource
 
 interface LedgerDatabase {
-    fun getDatabase(server: MinecraftServer): Database
+    fun getDataSource(savePath: Path): DataSource
     fun getDatabaseIdentifier(): Identifier
 }

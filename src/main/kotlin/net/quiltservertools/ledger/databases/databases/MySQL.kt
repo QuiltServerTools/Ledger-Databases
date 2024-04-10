@@ -1,22 +1,38 @@
 package net.quiltservertools.ledger.databases.databases
 
 import com.github.quiltservertools.ledger.Ledger
-import net.minecraft.server.MinecraftServer
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import net.quiltservertools.ledger.databases.DatabaseExtensionSpec
-import org.jetbrains.exposed.sql.Database
+import net.quiltservertools.ledger.databases.LedgerDatabases
+import java.nio.file.Path
+import javax.sql.DataSource
 
 object MySQL : LedgerDatabase {
-    override fun getDatabase(server: MinecraftServer): Database {
-        var url = "jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}?rewriteBatchedStatements=true"
-        for (arg in Ledger.config[DatabaseExtensionSpec.properties]) {
-            url = url.plus("&$arg")
+    override fun getDataSource(savePath: Path): DataSource = HikariDataSource(HikariConfig().apply {
+        jdbcUrl = "jdbc:mysql://${Ledger.config[DatabaseExtensionSpec.url]}"
+        username = Ledger.config[DatabaseExtensionSpec.userName]
+        password = Ledger.config[DatabaseExtensionSpec.password]
+        maximumPoolSize = Ledger.config[DatabaseExtensionSpec.maxPoolSize]
+        connectionTimeout = Ledger.config[DatabaseExtensionSpec.connectionTimeout]
+        addDataSourceProperty("rewriteBatchedStatements", "true")
+        addDataSourceProperty("cachePrepStmts", true)
+        addDataSourceProperty("prepStmtCacheSize", 250)
+        addDataSourceProperty("prepStmtCacheSqlLimit", 2048)
+        addDataSourceProperty("useServerPrepStmts", true)
+        addDataSourceProperty("cacheCallableStmts", true)
+        addDataSourceProperty("cacheResultSetMetadata", true)
+        addDataSourceProperty("cacheServerConfiguration", true)
+        addDataSourceProperty("useLocalSessionState", true)
+        addDataSourceProperty("elideSetAutoCommits", true)
+        addDataSourceProperty("alwaysSendSetIsolation", false)
+        addDataSourceProperty("useJDBCCompliantTimezoneShift", true)
+        addDataSourceProperty("useLegacyDatetimeCode", false)
+        addDataSourceProperty("serverTimezone", "UTC")
+        for ((key, value) in Ledger.config[DatabaseExtensionSpec.properties]) {
+            addDataSourceProperty(key, value)
         }
-        return Database.connect(
-            url = url,
-            user = Ledger.config[DatabaseExtensionSpec.userName],
-            password = Ledger.config[DatabaseExtensionSpec.password]
-        )
-    }
+    })
 
-    override fun getDatabaseIdentifier() = Ledger.identifier("mysql")
+    override fun getDatabaseIdentifier() = LedgerDatabases.identifier("mysql")
 }

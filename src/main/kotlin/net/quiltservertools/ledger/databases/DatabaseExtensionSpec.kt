@@ -1,11 +1,13 @@
 package net.quiltservertools.ledger.databases
 
-import com.github.quiltservertools.libs.com.uchuhimo.konf.ConfigSpec
+import com.uchuhimo.konf.ConfigSpec
 
 object DatabaseExtensionSpec : ConfigSpec("database_extensions") {
-    val database by optional(Databases.SQLITE, "database")
+    val database by required<Databases>("database")
     val userName by optional("root", "username")
     val password by optional("", "password")
     val url by optional("localhost", "url")
-    val properties by optional(listOf<String>(), "properties")
+    val properties by optional(mapOf<String, String>(), "properties")
+    val maxPoolSize by optional(10, "maxPoolSize")
+    val connectionTimeout by optional(60000L, "connectionTimeout")
 }

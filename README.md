@@ -28,6 +28,8 @@ url = ""
 username = ""
 password = ""
 properties = []
+maxPoolSize = 10
+connectionTimeout = 60000
 ```
 
 `url`: Must be URL of database with `/<database_name>` appended. An example URL would be `localhost/ledger`. You can optionally add port information such as `localhost:3000/ledger`
@@ -41,6 +43,15 @@ url = ""
 username = ""
 password = ""
 properties = []
+maxPoolSize = 10
+connectionTimeout = 60000
+```
+
+## SQLite
+
+```toml
+[database_extensions]
+database = "SQLITE"
 ```
 
 ## Connector properties

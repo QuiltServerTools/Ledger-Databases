@@ -8,6 +8,10 @@
   "authors": [
     "yitzy299"
   ],
+  "contact": {
+    "homepage": "https://modrinth.com/project/ledger-databases",
+    "sources": "https://github.com/QuiltServerTools/Ledger-Databases"
+  },
 
   "license": "LGPL-3.0",
 
@@ -15,7 +19,7 @@
   "entrypoints": {
     "server": [
       {
-        "value": "net.quiltservertools.ledger.databases.LedgerDatabases"
+        "value": "net.quiltservertools.ledger.databases.LedgerDatabases::INSTANCE"
       }
     ]
   },
@@ -23,9 +27,8 @@
   "depends": {
     "fabricloader": ">=0.12.5",
     "fabric": "*",
-    "minecraft": ">=1.18",
     "java": ">=16",
-    "ledger": ">=1.2.0",
+    "ledger": ">=1.3.0",
     "fabric-language-kotlin": "*"
   }
 }
