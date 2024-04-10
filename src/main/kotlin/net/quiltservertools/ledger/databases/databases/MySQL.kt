@@ -26,6 +26,9 @@ object MySQL : LedgerDatabase {
         addDataSourceProperty("useLocalSessionState", true)
         addDataSourceProperty("elideSetAutoCommits", true)
         addDataSourceProperty("alwaysSendSetIsolation", false)
+        addDataSourceProperty("useJDBCCompliantTimezoneShift", true)
+        addDataSourceProperty("useLegacyDatetimeCode", false)
+        addDataSourceProperty("serverTimezone", "UTC")
         for ((key, value) in Ledger.config[DatabaseExtensionSpec.properties]) {
             addDataSourceProperty(key, value)
         }

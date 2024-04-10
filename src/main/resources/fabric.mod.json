@@ -9,8 +9,8 @@
     "yitzy299"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://modrinth.com/project/ledger-databases",
+    "sources": "https://github.com/QuiltServerTools/Ledger-Databases"
   },
 
   "license": "LGPL-3.0",
