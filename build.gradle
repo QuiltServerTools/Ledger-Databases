@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.2.+'
+	id 'fabric-loom' version '1.6.+'
 	id 'maven-publish'
 	id 'org.jetbrains.kotlin.jvm' version "1.8.22"
 }
@@ -39,6 +39,9 @@ dependencies {
 
 	// MySQL
 	implementation(include('com.mysql:mysql-connector-j:8.3.0'))
+
+	// MariaDB
+	implementation(include('org.mariadb.jdbc:mariadb-java-client:3.3.3'))
 
 	// PostgreSQL
 	implementation(include("org.postgresql:postgresql:42.7.3"))
