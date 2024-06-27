@@ -1,12 +1,12 @@
 # Ledger Databases
 
-Adds support for MySQL, H2, and PostgreSQL databases in Ledger
+Adds support for MySQL, MariaDB, H2, and PostgreSQL databases in Ledger
 
 ## Use
 
 ## Common
 
-For both MySQL, H2, and PostgreSQL, you will need to place Ledger Databases in your mods folder along with Ledger 1.1.0 or newer
+For both MySQL, MariaDB, H2, and PostgreSQL, you will need to place Ledger Databases in your mods folder along with Ledger 1.1.0 or newer
 
 ## H2
 
@@ -24,6 +24,23 @@ Add the following to the bottom of your Ledger config file:
 ```toml
 [database_extensions]
 database = "MYSQL"
+url = ""
+username = ""
+password = ""
+properties = []
+maxPoolSize = 10
+connectionTimeout = 60000
+```
+
+`url`: Must be URL of database with `/<database_name>` appended. An example URL would be `localhost/ledger`. You can optionally add port information such as `localhost:3000/ledger`
+
+## MariaDB
+
+Add the following to the bottom of your Ledger config file:
+
+```toml
+[database_extensions]
+database = "MARIADB"
 url = ""
 username = ""
 password = ""
