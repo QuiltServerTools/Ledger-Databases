@@ -14,6 +14,7 @@ object PostgreSQL : LedgerDatabase {
         username = Ledger.config[DatabaseExtensionSpec.userName]
         password = Ledger.config[DatabaseExtensionSpec.password]
         maximumPoolSize = Ledger.config[DatabaseExtensionSpec.maxPoolSize]
+        maxLifetime = Ledger.config[DatabaseExtensionSpec.maxLifetime]
         addDataSourceProperty("reWriteBatchedInserts", "true")
         for ((key, value) in Ledger.config[DatabaseExtensionSpec.properties]) {
             addDataSourceProperty(key, value)

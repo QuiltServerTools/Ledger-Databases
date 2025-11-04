@@ -15,6 +15,7 @@ object MariaDB : LedgerDatabase {
         password = Ledger.config[DatabaseExtensionSpec.password]
         maximumPoolSize = Ledger.config[DatabaseExtensionSpec.maxPoolSize]
         connectionTimeout = Ledger.config[DatabaseExtensionSpec.connectionTimeout]
+        maxLifetime = Ledger.config[DatabaseExtensionSpec.maxLifetime]
         addDataSourceProperty("rewriteBatchedStatements", "true")
         addDataSourceProperty("cachePrepStmts", true)
         addDataSourceProperty("prepStmtCacheSize", 250)
