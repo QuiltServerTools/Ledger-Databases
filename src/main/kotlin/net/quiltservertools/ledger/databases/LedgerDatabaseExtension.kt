@@ -3,7 +3,7 @@ package net.quiltservertools.ledger.databases
 import com.github.quiltservertools.ledger.Ledger
 import com.github.quiltservertools.ledger.api.DatabaseExtension
 import com.uchuhimo.konf.ConfigSpec
-import net.minecraft.util.Identifier
+import net.minecraft.resources.Identifier
 import java.nio.file.Path
 import javax.sql.DataSource
 
