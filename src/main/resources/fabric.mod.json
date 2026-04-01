@@ -25,10 +25,8 @@
   },
 
   "depends": {
-    "fabricloader": ">=0.12.5",
-    "fabric": "*",
-    "java": ">=16",
-    "ledger": ">=1.3.0",
+    "minecraft": ">=26.1",
+    "ledger": ">=1.3.20",
     "fabric-language-kotlin": "*"
   }
 }

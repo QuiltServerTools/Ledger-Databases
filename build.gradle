@@ -3,14 +3,14 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id 'fabric-loom' version '1.12.7'
+	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 	id 'maven-publish'
-	id 'org.jetbrains.kotlin.jvm' version "2.2.21"
+	id 'org.jetbrains.kotlin.jvm' version "2.3.10"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 base {
@@ -28,34 +28,40 @@ repositories {
 	maven {
 		url = "https://oss.sonatype.org/content/repositories/snapshots"
 	}
+	maven {
+		url = "https://maven.potato.garden/releases"
+	}
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Yes this has to be capitalised
-	modImplementation "com.github.quiltservertools:Ledger:1.3.0+local"
+	implementation "com.github.quiltservertools:Ledger:1.3.20"
 
-	modImplementation "net.fabricmc:fabric-language-kotlin:1.9.4+kotlin.1.8.21"
+	implementation "net.fabricmc:fabric-language-kotlin:1.13.9+kotlin.2.3.10"
 
-	implementation(include("com.zaxxer:HikariCP:5.0.1"))
+	implementation("com.uchuhimo:konf-core:1.1.2")
+	implementation(include("com.zaxxer:HikariCP:7.0.2"))
 
 	// H2
-	implementation(include("com.h2database:h2:2.2.224"))
+	implementation(include("com.h2database:h2:2.4.240"))
 
 	// MySQL
-	implementation(include('com.mysql:mysql-connector-j:8.3.0'))
+	implementation(include('com.mysql:mysql-connector-j:9.6.0'))
 
 	// MariaDB
-	implementation(include('org.mariadb.jdbc:mariadb-java-client:3.3.3'))
+	implementation(include('org.mariadb.jdbc:mariadb-java-client:3.5.7'))
 
 	// PostgreSQL
-	implementation(include("org.postgresql:postgresql:42.7.3"))
+	implementation(include("org.postgresql:postgresql:42.7.9"))
+	
+	//SQLite
+	implementation('org.xerial:sqlite-jdbc:3.50.3.0')
 
-    modImplementation("me.lucko:fabric-permissions-api:0.3")
+	implementation("me.lucko:fabric-permissions-api:0.7.0")
 }
 
 processResources {
@@ -69,13 +75,11 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 
-	it.options.release = 17
+	it.options.release = 25
 }
 
 tasks.withType(KotlinCompile).configureEach {
-    it.compilerOptions.languageVersion = KotlinVersion.KOTLIN_1_8
-    it.compilerOptions.apiVersion = KotlinVersion.KOTLIN_1_8
-    it.compilerOptions.jvmTarget = JvmTarget.JVM_17
+    it.compilerOptions.jvmTarget = JvmTarget.JVM_25
 }
 
 java {
@@ -88,23 +92,5 @@ java {
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archives_base_name}"}
-	}
-}
-
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
-	}
-
-	repositories {
 	}
 }
