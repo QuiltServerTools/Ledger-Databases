@@ -27,7 +27,7 @@ database = "MYSQL"
 url = ""
 username = ""
 password = ""
-properties = []
+properties = {}
 maxPoolSize = 10
 connectionTimeout = 60000
 ```
@@ -44,7 +44,7 @@ database = "MARIADB"
 url = ""
 username = ""
 password = ""
-properties = []
+properties = {}
 maxPoolSize = 10
 connectionTimeout = 60000
 ```
@@ -59,7 +59,7 @@ database = "POSTGRESQL"
 url = ""
 username = ""
 password = ""
-properties = []
+properties = {}
 maxPoolSize = 10
 connectionTimeout = 60000
 ```
@@ -73,8 +73,16 @@ database = "SQLITE"
 
 ## Connector properties
 
-For some databases, such as MySQL, you can provide properties to the database connector. For each property, add a string entry to the `properties` array.
+For some databases, such as MySQL, you can provide properties to the database connector. For each property, you can specify the key and value in the `properties` field. For example, to set the timezone shift and legacy datetime code properties for MySQL, you would add the following to your Ledger config file:
 
 ```toml
-properties = ["useJDBCCompliantTimezoneShift=true", "useLegacyDatetimeCode=false", "serverTimezone=UTC"]
+properties = {useJDBCCompliantTimezoneShift = "true", useLegacyDatetimeCode = "false", serverTimezone = "UTC"}
+```
+
+Or alternative table format:
+```toml
+[database_extensions.properties]
+useJDBCCompliantTimezoneShift = "true"
+useLegacyDatetimeCode = "false"
+serverTimezone = "UTC"
 ```
